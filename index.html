@@ -81,7 +81,11 @@
   .cast-role{font-size:11px;color:var(--gray-400);margin-left:2px}
 
   .card-visual{display:flex;align-items:center;justify-content:center;padding:40px}
-  .poster-placeholder{width:100%;max-width:320px;aspect-ratio:2/3;border-radius:24px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.2)}
+  .poster-wrap{width:100%;max-width:320px;aspect-ratio:2/3;border-radius:24px;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.25);transition:transform .4s cubic-bezier(.4,0,.2,1),box-shadow .4s}
+  .poster-wrap:hover{transform:scale(1.03) translateY(-8px);box-shadow:0 24px 64px rgba(0,0,0,.35)}
+  .poster-wrap img{width:100%;height:100%;object-fit:cover;display:block;border-radius:24px;opacity:0;transition:opacity .6s ease}
+  .poster-wrap img.loaded{opacity:1}
+  .poster-placeholder{width:100%;height:100%;position:absolute;top:0;left:0;border-radius:24px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);overflow:hidden}
   .poster-placeholder::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.03),transparent,rgba(255,255,255,.03),transparent);animation:rotate 20s linear infinite}
   @keyframes rotate{to{transform:rotate(360deg)}}
   .poster-number{font-size:96px;font-weight:800;opacity:.15;position:absolute}
@@ -126,7 +130,8 @@
   /* RESPONSIVE */
   @media(max-width:1024px){
     .movie-card{grid-template-columns:1fr;gap:32px}
-    .card-visual{display:none}
+    .card-visual{justify-content:center}
+    .poster-wrap{max-width:240px}
     .timeline::before{left:24px}
     .year-badge{left:24px;transform:none;width:48px;height:48px;font-size:13px}
     .movie-card{padding-left:56px}
@@ -214,10 +219,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder">
-            <div class="poster-number">I</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">1996</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder"><div class="poster-number">I</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">1996</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/1PVKS8RwC0bnz2BiCjmKcASSBJl.jpg" alt="Mission: Impossible (1996) Poster">
           </div>
         </div>
       </div>
@@ -257,10 +261,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder">
-            <div class="poster-number">II</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2000</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder"><div class="poster-number">II</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2000</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/sslcoMbEDOxveOHFWfhjoSBFBkX.jpg" alt="Mission: Impossible 2 (2000) Poster">
           </div>
         </div>
       </div>
@@ -300,10 +303,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder">
-            <div class="poster-number">III</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2006</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder"><div class="poster-number">III</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2006</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/qSlFsXiEPeFOIFWMlN8W4op7tNg.jpg" alt="Mission: Impossible III (2006) Poster">
           </div>
         </div>
       </div>
@@ -343,10 +345,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder">
-            <div class="poster-number">IV</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2011</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder"><div class="poster-number">IV</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2011</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/s58mMsgIVOFfoaONOOgIDAfsJKh.jpg" alt="Mission: Impossible - Ghost Protocol (2011) Poster">
           </div>
         </div>
       </div>
@@ -388,10 +389,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder">
-            <div class="poster-number">V</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2015</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder"><div class="poster-number">V</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2015</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/z2yLOpw0GwBh0NoTRktTMla5j5f.jpg" alt="Mission: Impossible - Rogue Nation (2015) Poster">
           </div>
         </div>
       </div>
@@ -435,10 +435,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder" style="background:linear-gradient(135deg,#1a0a0a 0%,#2e1a1a 50%,#601a0f 100%)">
-            <div class="poster-number">VI</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2018</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder" style="background:linear-gradient(135deg,#1a0a0a 0%,#2e1a1a 50%,#601a0f 100%)"><div class="poster-number">VI</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2018</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/AkJQpZp9WoNdj7pLYSj1L0RcMMN.jpg" alt="Mission: Impossible - Fallout (2018) Poster">
           </div>
         </div>
       </div>
@@ -480,10 +479,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder" style="background:linear-gradient(135deg,#0a1a0a 0%,#162e1a 50%,#0f6034 100%)">
-            <div class="poster-number">VII</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2023</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder" style="background:linear-gradient(135deg,#0a1a0a 0%,#162e1a 50%,#0f6034 100%)"><div class="poster-number">VII</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2023</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/NNxYkU70HPurnNCSiCjYAmacwm.jpg" alt="Mission: Impossible - Dead Reckoning (2023) Poster">
           </div>
         </div>
       </div>
@@ -523,10 +521,9 @@
           </div>
         </div>
         <div class="card-visual">
-          <div class="poster-placeholder" style="background:linear-gradient(135deg,#1a0a1a 0%,#2e1a2e 50%,#600f60 100%)">
-            <div class="poster-number">VIII</div>
-            <div class="poster-mi">Mission: Impossible</div>
-            <div class="poster-year">2025</div>
+          <div class="poster-wrap">
+            <div class="poster-placeholder" style="background:linear-gradient(135deg,#1a0a1a 0%,#2e1a2e 50%,#600f60 100%)"><div class="poster-number">VIII</div><div class="poster-mi">Mission: Impossible</div><div class="poster-year">2025</div></div>
+            <img data-src="https://image.tmdb.org/t/p/w500/z1fJoNgMFRRBJSGrhXPmHQGdJsE.jpg" alt="Mission: Impossible - The Final Reckoning (2025) Poster">
           </div>
         </div>
       </div>
@@ -632,6 +629,14 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Poster lazy load with fallback
+document.querySelectorAll('.poster-wrap img[data-src]').forEach(img => {
+  const src = img.dataset.src;
+  img.onload = () => { img.classList.add('loaded'); };
+  img.onerror = () => { img.style.display = 'none'; };
+  img.src = src;
+});
 
 // Chart animation
 const chartObs = new IntersectionObserver((entries) => {
