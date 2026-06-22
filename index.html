@@ -111,7 +111,7 @@
 
   /* CHART */
   .chart-section{background:var(--gray-50);border-radius:24px;padding:48px;margin-top:64px}
-  .chart-bars{display:flex;align-items:flex-end;justify-content:center;gap:24px;height:320px;padding-top:40px}
+  .chart-bars{display:flex;align-items:flex-end;justify-content:center;gap:24px;height:320px}
   .chart-bar-group{display:flex;flex-direction:column;align-items:center;flex:1;max-width:120px}
   .chart-bar{width:100%;border-radius:12px 12px 0 0;background:var(--blue);position:relative;transition:height .8s cubic-bezier(.4,0,.2,1);min-height:4px}
   .chart-bar:hover{opacity:.85}
@@ -126,6 +126,9 @@
   /* SCROLL ANIMATION */
   .fade-in{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}
   .fade-in.visible{opacity:1;transform:translateY(0)}
+
+  /* Comparison section fix */
+  #compare .section-header,#compare .comparison{position:relative;z-index:1}
 
   /* RESPONSIVE */
   @media(max-width:1024px){
@@ -577,35 +580,35 @@
   <div class="chart-section fade-in">
     <div class="chart-bars" id="chartBars">
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="57.9" style="height:0"><span class="tooltip">$457.7M</span></div>
+        <div class="chart-bar" data-height="185" style="height:4px"><span class="tooltip">$457.7M</span></div>
         <div class="chart-label">1996<br>MI</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="69.1" style="height:0"><span class="tooltip">$546.4M</span></div>
+        <div class="chart-bar" data-height="221" style="height:4px"><span class="tooltip">$546.4M</span></div>
         <div class="chart-label">2000<br>MI:2</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="50.4" style="height:0"><span class="tooltip">$398.5M</span></div>
+        <div class="chart-bar" data-height="161" style="height:4px"><span class="tooltip">$398.5M</span></div>
         <div class="chart-label">2006<br>MI:III</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="87.9" style="height:0;background:#1428a0"><span class="tooltip">$694.7M</span></div>
+        <div class="chart-bar" data-height="281" style="height:4px;background:#1428a0"><span class="tooltip">$694.7M</span></div>
         <div class="chart-label">2011<br>GP</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="86.3" style="height:0"><span class="tooltip">$682.7M</span></div>
+        <div class="chart-bar" data-height="276" style="height:4px"><span class="tooltip">$682.7M</span></div>
         <div class="chart-label">2015<br>RN</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="100" style="height:0;background:#0f3460"><span class="tooltip">$791.1M</span></div>
+        <div class="chart-bar" data-height="320" style="height:4px;background:#0f3460"><span class="tooltip">$791.1M</span></div>
         <div class="chart-label">2018<br>Fallout</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="72.2" style="height:0"><span class="tooltip">$571.1M</span></div>
+        <div class="chart-bar" data-height="231" style="height:4px"><span class="tooltip">$571.1M</span></div>
         <div class="chart-label">2023<br>DR</div>
       </div>
       <div class="chart-bar-group">
-        <div class="chart-bar" data-height="75.7" style="height:0"><span class="tooltip">$598.8M</span></div>
+        <div class="chart-bar" data-height="242" style="height:4px"><span class="tooltip">$598.8M</span></div>
         <div class="chart-label">2025<br>FR</div>
       </div>
     </div>
@@ -627,7 +630,7 @@ window.addEventListener('scroll', () => {
 // Fade-in on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.15 });
+}, { threshold: 0.05, rootMargin: '0px 0px 100px 0px' });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 // Poster lazy load with fallback
@@ -639,16 +642,18 @@ document.querySelectorAll('.poster-wrap img[data-src]').forEach(img => {
 });
 
 // Chart animation
+let chartAnimated = false;
 const chartObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
+    if (e.isIntersecting && !chartAnimated) {
+      chartAnimated = true;
       e.target.querySelectorAll('.chart-bar').forEach((bar, i) => {
-        setTimeout(() => { bar.style.height = bar.dataset.height + '%'; }, i * 100);
+        setTimeout(() => { bar.style.height = bar.dataset.height + 'px'; }, i * 120);
       });
       chartObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.1, rootMargin: '0px 0px 200px 0px' });
 chartObs.observe(document.getElementById('chartBars'));
 </script>
 </body>
